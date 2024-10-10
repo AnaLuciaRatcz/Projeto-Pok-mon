@@ -18,15 +18,32 @@
 </head>
 <body>
     <div id="container">
+        <div id="fade" class="hide">
+            <div id="loader" class="spinner-border text-info hide" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div id="message" class="hide">
+                <div class="alert alert-light" role="alert" >
+                    <h4>Mensagem:</h4>
+                    <p></p>
+                    <button id="close-message" type="button" class="btn btn-secondary">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
         <!--card-->>
         <div class="card"  style="width: 20rem;">
-            <img src="img/pokelogo-removebg-preview.png" alt="">
-            <input id="input-img" disabled>
+            <img id="img-logo" src="img/pokelogo-removebg-preview.png" alt="">
+            
             <div class="card-body">
+                <img id="img-space" src="" alt="">
               <input type="text"
               id="input-name-number"
               class="input-name"
               placeholder="Name or Number">
+              <i id="btn-search" class="bi bi-search"></i>
+              <i id="btn-clear" class="bi bi-x-square"></i>
         
               <button id="button-1" type="button" class="btn btn-primary">Previous</button>
               <button id="button-2" type="button" class="btn btn-primary">Next</button>
