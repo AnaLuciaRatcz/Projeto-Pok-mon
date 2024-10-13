@@ -1,72 +1,66 @@
+//procura e guarda os elementos que vamos usar no javascript
 const imgSpace = document.querySelector("#img-space");
 const inputNameNumber = document.querySelector("#input-name-number");
+//previous and next buttons
 const buttonOne = document.querySelector("#button-1");
 const buttonTwo = document.querySelector("#button-2"); 
 //spinning
 const fadeElement = document.querySelector("#fade");
 const LoaderElement = document.querySelector("#loader");
-
+//search and clear buttons
 const btnSearch = document.querySelector("#btn-search");
 const btnClear = document.querySelector("#btn-clear");
-
+//modal button
 const closeButton = document.querySelector("#close-message")
+//modal message
+const messageElement = document.querySelector("#message");
+const messageElementText = document.querySelector("#message p");
 
-let pokemonId = 1;
+// usei let pq o valor vai variar
+let pokemonId = 1; //significa que vai começar a contar do pokémon número 1
 
-// Validate Name Number Input
-inputNameNumber.addEventListener("keypress", (e)=>{
-    
-    const key = String.fromCharCode(e.which);
-});
-
-//Get Pokemon event
-inputNameNumber.addEventListener("keypress",(e) => {
-
-    const inputValue = e.target.value;
-});
-
-//Get customer Pokemon from API
+//Get customer Pokemon from API (função)
 const getPokemon = async (pokemon) => {
 
-    toggleLoader();
+    toggleLoader(); // comando, já criei essa função
     
-    inputNameNumber.blur();
+    inputNameNumber.blur();// não criei essa função, já é própria do input
 
     const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
 
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl);// fetch é uma função própria para fazer consulta de api
 
     //Show error and reset input
 
-    if (response.status === 404){
+    if (response.status === 404){ //função
         inputNameNumber.value ="";
-        toggleLoader();
-        toggleMessage("Texto inválido, tente novamente.")
+        imgSpace.setAttribute("src", "img/pokebola.png");
+        toggleLoader(); //comando
+        toggleMessage("Texto inválido, tente novamente.")//comando, já criei a função
         return;
     }
 
-    const data = await response.json();
+    const data = await response.json(); // espere a promessa ser realizada
 
     console.log(data);
-
-    imgSpace.setAttribute("src", data.sprites.other["official-artwork"].front_default);
+    //função
+    imgSpace.setAttribute("src",
+    data.sprites.other["official-artwork"].front_default);
 
      pokemonId = data.id;
 
      inputNameNumber.value = data.name;
     
-    toggleLoader();
-
-
+    toggleLoader(); //comando
 };
 
-//Show or ride loader
+//Show or ride loader (função)
 const toggleLoader = () => {
     fadeElement.classList.toggle("hide");
     LoaderElement.classList.toggle("hide");
 };
 
-//Search button
+//Search button (função)
 btnSearch.addEventListener("click", function(){
 
     const valor = inputNameNumber.value;
@@ -74,31 +68,27 @@ btnSearch.addEventListener("click", function(){
     getPokemon(valor);     
 });
 
-//Clear button
+//Clear button (função)
 btnClear.addEventListener("click", function(){
 
-    const valor = inputNameNumber.value = "";               
+    inputNameNumber.value = ""; 
+    imgSpace.setAttribute("src","img/pokebola.png");     
 } );
 
-//Show or hide message
+//Show or hide message (função)
 const toggleMessage = (msg) =>{
-
-    const messageElement = document.querySelector("#message");
-
-    const messageElementText = document.querySelector("#message p");
-
     messageElementText.innerText = msg;
 
     fadeElement.classList.toggle("hide");
     messageElement.classList.toggle("hide");
 }
 
-//Close message modal
+//Close message modal (função)
 closeButton.addEventListener("click", () => toggleMessage()); 
 
-//Previous and next buttons
+//Previous and next buttons (3 funções seguidas)
 const startSearch = () =>{
-    buttonOne.disabled = (pokemonId <= 1); true || false
+    buttonOne.disabled = (pokemonId <= 1);
 };
 
 buttonOne.addEventListener("click",() =>{
